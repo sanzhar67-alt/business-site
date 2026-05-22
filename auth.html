@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Кіру - NovaTech</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #0a0a0f;
+      color: #f0f0f8;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-image: radial-gradient(circle at 10% 20%, rgba(124,92,252,0.15) 0%, transparent 50%);
+    }
+
+    .auth-container {
+      width: 100%;
+      max-width: 460px;
+      padding: 24px;
+    }
+
+    .auth-card {
+      background: #111118;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 32px;
+      padding: 48px 40px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(124,92,252,0.1);
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 32px;
+      display: block;
+      color: #f0f0f8;
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: #7c5cfc;
+    }
+
+    h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -1px;
+    }
+
+    .sub {
+      color: #8888aa;
+      font-size: 14px;
+      margin-bottom: 32px;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #8888aa;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 16px;
+      background: #1a1a26;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      color: #f0f0f8;
+      transition: all 0.3s;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #7c5cfc;
+      box-shadow: 0 0 0 3px rgba(124,92,252,0.2);
+    }
+
+    input.invalid {
+      border-color: #f72585;
+    }
+
+    .error {
+      color: #f72585;
+      font-size: 12px;
+      margin-top: 6px;
+      display: block;
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 14px;
+      background: #7c5cfc;
+      border: none;
+      border-radius: 40px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 8px;
+    }
+
+    .btn-login:hover {
+      background: #a78bfa;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(124,92,252,0.4);
+    }
+
+    .register-link {
+      text-align: center;
+      margin-top: 28px;
+      font-size: 14px;
+      color: #8888aa;
+    }
+
+    .register-link a {
+      color: #7c5cfc;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .register-link a:hover {
+      text-decoration: underline;
+    }
+
+    .back-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .back-link a {
+      color: #8888aa;
+      font-size: 13px;
+      text-decoration: none;
+    }
+
+    .back-link a:hover {
+      color: #f0f0f8;
+    }
+  </style>
+</head>
+<body>
+<div class="auth-container">
+  <div class="auth-card">
+    <a href="index.html" class="logo">Nova<span>Tech</span></a>
+    <h2>Қош келдіңіз</h2>
+    <p class="sub">Жүйеге кіріңіз</p>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label>Email немесе Логин</label>
+        <input type="text" id="loginUsername" placeholder="example@novatech.kz">
+        <span class="error" id="userError"></span>
+      </div>
+
+      <div class="form-group">
+        <label>Құпия сөз</label>
+        <input type="password" id="loginPassword" placeholder="••••••••">
+        <span class="error" id="passError"></span>
+      </div>
+
+      <button type="submit" class="btn-login">Кіру</button>
+    </form>
+
+    <div class="register-link">
+      Жаңа пайдаланушысыз ба? <a href="register.html">Тіркелу</a>
+    </div>
+    <div class="back-link">
+      <a href="index.html">← Басты бетке оралу</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const loginForm = document.getElementById('loginForm');
+  const loginUsername = document.getElementById('loginUsername');
+  const loginPassword = document.getElementById('loginPassword');
+  const userError = document.getElementById('userError');
+  const passError = document.getElementById('passError');
+
+  // Кіріс функциясы
+  function handleLogin(e) {
+    e.preventDefault();
+
+    let isValid = true;
+    userError.textContent = '';
+    passError.textContent = '';
+    loginUsername.classList.remove('invalid');
+    loginPassword.classList.remove('invalid');
+
+    const username = loginUsername.value.trim();
+    const password = loginPassword.value.trim();
+
+    if (!username) {
+      userError.textContent = 'Email немесе логинді енгізіңіз';
+      loginUsername.classList.add('invalid');
+      isValid = false;
+    }
+
+    if (!password) {
+      passError.textContent = 'Құпия сөзді енгізіңіз';
+      loginPassword.classList.add('invalid');
+      isValid = false;
+    }
+
+    if (!isValid) return;
+
+    // localStorage-дан пайдаланушыларды алу
+    const users = JSON.parse(localStorage.getItem('novatech_users') || '[]');
+
+    const foundUser = users.find(user => 
+      (user.email === username || user.username === username) && user.password === password
+    );
+
+    if (foundUser) {
+      // Сәтті кіру
+      localStorage.setItem('novatech_logged_in', 'true');
+      localStorage.setItem('novatech_user', JSON.stringify({
+        username: foundUser.username,
+        email: foundUser.email
+      }));
+      window.location.href = 'index.html';
+    } else {
+      passError.textContent = 'Email немесе құпия сөз қате';
+      loginPassword.classList.add('invalid');
+      loginUsername.classList.add('invalid');
+    }
+  }
+
+  loginForm.addEventListener('submit', handleLogin);
+</script>
+</body>
+</html>
