@@ -20,7 +20,17 @@
       <li><a href="#pricing">Бағалар</a></li>
       <li><a href="#contact">Байланыс</a></li>
     </ul>
-    <a href="#contact" class="btn-nav">Байланысу</a>
+    
+    <!-- АВТОРИЗАЦИЯ БӨЛІМІ -->
+    <div id="userSection" style="display: flex; gap: 12px; align-items: center;">
+      <a href="auth.html" id="loginBtn" class="btn-nav">Кіру</a>
+      <a href="register.html" id="registerBtn" class="btn-nav" style="background: transparent; border: 1px solid rgba(255,255,255,0.2);">Тіркелу</a>
+      <div id="userMenu" style="display: none; gap: 12px; align-items: center;">
+        <span id="userNameDisplay" style="color: #a78bfa; font-weight: 500;"></span>
+        <button id="logoutBtn" class="btn-nav" style="background: transparent; border: 1px solid rgba(255,255,255,0.2); cursor: pointer;">Шығу</button>
+      </div>
+    </div>
+    
     <button class="burger" id="burger" aria-label="Мәзір">
       <span></span><span></span><span></span>
     </button>
@@ -30,6 +40,8 @@
     <a href="#services">Қызметтер</a>
     <a href="#pricing">Бағалар</a>
     <a href="#contact">Байланыс</a>
+    <a href="auth.html" id="mobileLoginBtn">Кіру</a>
+    <a href="register.html" id="mobileRegisterBtn">Тіркелу</a>
   </div>
 </nav>
 
@@ -501,5 +513,49 @@
 <button class="scroll-top" id="scrollTop" aria-label="Жоғарыға">↑</button>
 
 <script src="script.js"></script>
+
+<!-- СЕССИЯ БАСҚАРУ (АВТОРИЗАЦИЯ) -->
+<script>
+  function updateAuthUI() {
+    const isLoggedIn = localStorage.getItem('novatech_logged_in') === 'true';
+    const userData = localStorage.getItem('novatech_user');
+    
+    const loginBtn = document.getElementById('loginBtn');
+    const registerBtn = document.getElementById('registerBtn');
+    const userMenu = document.getElementById('userMenu');
+    const userNameDisplay = document.getElementById('userNameDisplay');
+    const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+    const mobileRegisterBtn = document.getElementById('mobileRegisterBtn');
+    
+    if (isLoggedIn && userData) {
+      const user = JSON.parse(userData);
+      if (loginBtn) loginBtn.style.display = 'none';
+      if (registerBtn) registerBtn.style.display = 'none';
+      if (userMenu) userMenu.style.display = 'flex';
+      if (userNameDisplay) userNameDisplay.textContent = user.username || user.email;
+      if (mobileLoginBtn) mobileLoginBtn.style.display = 'none';
+      if (mobileRegisterBtn) mobileRegisterBtn.style.display = 'none';
+    } else {
+      if (loginBtn) loginBtn.style.display = 'inline-block';
+      if (registerBtn) registerBtn.style.display = 'inline-block';
+      if (userMenu) userMenu.style.display = 'none';
+      if (mobileLoginBtn) mobileLoginBtn.style.display = 'block';
+      if (mobileRegisterBtn) mobileRegisterBtn.style.display = 'block';
+    }
+  }
+  
+  function logout() {
+    localStorage.removeItem('novatech_logged_in');
+    localStorage.removeItem('novatech_user');
+    window.location.reload();
+  }
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    updateAuthUI();
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) logoutBtn.addEventListener('click', logout);
+  });
+</script>
+
 </body>
 </html>
